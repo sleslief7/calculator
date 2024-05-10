@@ -1,5 +1,6 @@
 const buttons = document.getElementById('buttons');
-const screen = document.getElementById('screen');
+const screen = document.getElementById('mainDisplay');
+const littleDisplay = document.getElementById('littleDisplay');
 const numbers = Array.from(document.querySelectorAll('.numbers'));
 let operators = Array.from(document.querySelectorAll('.operators'));
 let num1;
@@ -23,19 +24,27 @@ const operate = (num1, num2, operator) => {
 const clearScreen = () => {
     screen.textContent = '';
 }
+const clearLittleScreen = () => {
+    littleDisplay.textContent = '';
+}
 
 const screenDisplay = (text) => {
     screen.textContent += text;
+}
+const screenLittleDisplay = (text) => {
+    littleDisplay.textContent += `${text}`;
 }
 
 numbers.forEach(el => el.addEventListener('click', (event) => {
     const target = event.target;
     screenDisplay(target.innerText);
+    screenLittleDisplay(target.innerText);
     
 }));
 
 operators.forEach(el => el.addEventListener('click', (event) => {
     num1 = Number(screen.innerText);
+    screenLittleDisplay(event.target.innerText);
     clearScreen();
 }));
 
@@ -43,7 +52,10 @@ buttons.addEventListener('click', (event) => {
     const target = event.target;
     const id = target.id;
 
-    if(id === 'clear') return clearScreen();
+    if(id === 'clear') {
+        clearScreen();
+        clearLittleScreen();
+    };
     if(target.classList.contains('operators')) operator = target.innerText;
     if(id === 'equals') {
         num2 = Number(screen.innerText);

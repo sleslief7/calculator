@@ -47,17 +47,23 @@ h1 {
 #screen {
     padding: 10px;
     display: flex;
+    flex-direction: column;
     overflow-y: hidden;
     overflow-x: auto;
-    align-items: center;
     width: 90%;
     height: 100px;
     border-radius: 3%;
     color: var(--second-color);
     background-color: var(--fourth-color);
     border: 1px solid var(--fourth-color);
-    font-size: 3em;
     font-family: "Orbitron", sans-serif;
+}
+#littleDisplay {
+    font-size: 1em;
+    align-self: self-end;
+}
+#mainDisplay {
+    font-size: 3em;
 }
 #buttons {
     width: 90%;
