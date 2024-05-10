@@ -6,10 +6,10 @@ let num1;
 let num2;
 let operator;
 
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
+const add = (a, b) => (a + b).toFixed(2);
+const subtract = (a, b) => (a - b).toFixed(2);
+const multiply = (a, b) => (a * b).toFixed(2);
+const divide = (a, b) => (a / b).toFixed(2);
 
 const operate = (num1, num2, operator) => {
 
