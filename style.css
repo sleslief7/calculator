@@ -15,7 +15,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--second-color); 
+    background-color: var(--second-color);
+    user-select: none;
 }
 #container {
     display: flex;

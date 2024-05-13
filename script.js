@@ -1,71 +1,112 @@
 const buttons = document.getElementById('buttons');
 const screen = document.getElementById('mainDisplay');
-const littleDisplay = document.getElementById('littleDisplay');
+const miniScreen = document.getElementById('littleDisplay');
 const numbers = Array.from(document.querySelectorAll('.numbers'));
 let operators = Array.from(document.querySelectorAll('.operators'));
+let clearBtn = document.getElementById('clear');
+let equalBtn = document.getElementById('equal');
 let num1;
-let num2;
 let operator;
+let num2;
+let isInProgress = false;
 
-const add = (a, b) => (a + b).toFixed(2);
-const subtract = (a, b) => (a - b).toFixed(2);
-const multiply = (a, b) => (a * b).toFixed(2);
-const divide = (a, b) => (a / b).toFixed(2);
+const add = (a, b) => (a + b);
+const subtract = (a, b) => (a - b);
+const multiply = (a, b) => (a * b);
+const divide = (a, b) => (a / b);
 
 const operate = (num1, num2, operator) => {
-    if(operator === '+') screenDisplay(add(num1, num2));
-    if(operator === '-') screenDisplay(subtract(num1, num2));
-    if(operator === '*') screenDisplay(multiply(num1, num2));
-    if(operator === '/') screenDisplay(divide(num1, num2));
+    if(operator === '+') updateScreen(add(num1, num2));
+    if(operator === '-') updateScreen(subtract(num1, num2));
+    if(operator === '*') updateScreen(multiply(num1, num2));
+    if(operator === '/') updateScreen(divide(num1, num2));
 }
 
 const clearScreen = () => {
     screen.textContent = '';
 }
 const clearLittleScreen = () => {
-    littleDisplay.textContent = '';
+    miniScreen.textContent = '';
+}
+const updateScreen = (text) => {
+    screen.textContent += text.toString().substring(0, 9);
+}
+const updateMiniScreen = (text) => {
+    miniScreen.textContent += text;
 }
 
-const screenDisplay = (text) => {
-    screen.textContent += text;
-}
-const screenLittleDisplay = (text) => {
-    littleDisplay.textContent += `${text}`;
+const handleNumberClick = e => {
+    isInProgress = true;
+    e.stopPropagation();
+    const el = e.target;
+    updateScreen(el.innerText);
+    updateMiniScreen(el.innerText);
+    if (el.id === "period") handlePeriodClick();
 }
 
-numbers.forEach(el => el.addEventListener('click', (event) => {
-    const target = event.target;
-    screenDisplay(target.innerText);
-    screenLittleDisplay(target.innerText);
+const handleOperatorClick = e => {
+    isInProgress = true;
+    operator = e.target.innerText
+    num1 = Number(screen.innerText);
+    updateMiniScreen(e.target.innerText);
+    clearScreen();
+} 
+const handleOperatorPress = key => {
+    isInProgress = true;
+    operator = key;
+    num1 = Number(screen.innerText);
+    updateMiniScreen(key);
+    clearScreen();
+}
+
+const handleEnterPress = () => {
+    num2 = Number(screen.innerText);
+    clearScreen();
+    operate(num1, num2, operator);
+}
+
+const handleKeysPress = (e) => {
+    isInProgress = true;
+    const key = e.key;
+    let code = Number(e.key);
+    console.log(key)
+    if (key === "." && screen.innerText.includes('.')) return;
+    if(code >= 0 && code <= 9 || key === '.') {
+        updateScreen(key);
+        updateMiniScreen(key);
+    }
+    if(key === '+' || key === '-' || key === '/' || key === '*') {
+        handleOperatorPress(key);
+    }
+    if(key === 'Enter') {
+        handleEnterPress();
+    }
+    if(key === "Backspace") {
+        clearScreen();
+        clearLittleScreen();
+    }
+}
+const handlePeriodClick = () => {
     let period = document.getElementById('period');
-    if(screen.innerText.includes('.')){
+    if (screen.innerText.includes('.')) {
         period.classList.add('disabled');
     } else {
         period.classList.remove('disabled');
     }
-    
-}));
+} 
 
-operators.forEach(el => el.addEventListener('click', (event) => {
-    num1 = Number(screen.innerText);
-    screenLittleDisplay(event.target.innerText);
+
+numbers.forEach(el => el.addEventListener('click', handleNumberClick));
+operators.forEach(el => el.addEventListener('click', handleOperatorClick));
+document.addEventListener('keydown', handleKeysPress);
+
+clearBtn.addEventListener('click', () => {
     clearScreen();
-}));
+    clearLittleScreen();
+});
 
-buttons.addEventListener('click', (event) => {
-    const target = event.target;
-    const id = target.id;
-
-    if(id === 'clear') {
-        clearScreen();
-        clearLittleScreen();
-    };
-    if(target.classList.contains('operators')) operator = target.innerText;
-    if(id === 'equals') {
-        num2 = Number(screen.innerText);
-        clearScreen();
-        operate(num1, num2, operator);
-        num1 = 0;
-        num2 = 0;
-    }
+equalBtn.addEventListener('click', () => {
+    num2 = Number(screen.innerText);
+    clearScreen();
+    operate(num1, num2, operator);
 });
