@@ -13,12 +13,10 @@ const multiply = (a, b) => (a * b).toFixed(2);
 const divide = (a, b) => (a / b).toFixed(2);
 
 const operate = (num1, num2, operator) => {
-
     if(operator === '+') screenDisplay(add(num1, num2));
     if(operator === '-') screenDisplay(subtract(num1, num2));
     if(operator === '*') screenDisplay(multiply(num1, num2));
     if(operator === '/') screenDisplay(divide(num1, num2));
-
 }
 
 const clearScreen = () => {
@@ -39,6 +37,12 @@ numbers.forEach(el => el.addEventListener('click', (event) => {
     const target = event.target;
     screenDisplay(target.innerText);
     screenLittleDisplay(target.innerText);
+    let period = document.getElementById('period');
+    if(screen.innerText.includes('.')){
+        period.classList.add('disabled');
+    } else {
+        period.classList.remove('disabled');
+    }
     
 }));
 
@@ -61,5 +65,7 @@ buttons.addEventListener('click', (event) => {
         num2 = Number(screen.innerText);
         clearScreen();
         operate(num1, num2, operator);
+        num1 = 0;
+        num2 = 0;
     }
 });

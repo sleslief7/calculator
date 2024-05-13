@@ -103,3 +103,6 @@ h1 {
 .regularBtns:active, .biggestBtn:active, .biggerBtn:active {
     background-color: var(--first-color);
 }
+.disabled {
+    pointer-events: none;
+}
