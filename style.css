@@ -98,6 +98,7 @@ h1 {
     font-size: 1.5em;
     font-weight: 900;
     cursor: pointer;
+    transition: 0.2s;
 }
 .regularBtns:hover, .biggestBtn:hover, .biggerBtn:hover {
     background-color: var(--fourth-color);
