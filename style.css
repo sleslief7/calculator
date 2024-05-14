@@ -1,8 +1,8 @@
 :root {
-    --first-color: #f78536; 
-    --second-color:#dfebed; 
-    --third-color:#497285; 
-    --fourth-color:#2b4450; 
+    --first-color: #e7eaf6; 
+    --second-color:#113f67; 
+    --third-color:#a2a8d3; 
+    --fourth-color:#38598b; 
 }
 * {
     box-sizing: border-box;
@@ -15,7 +15,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--second-color);
+    background-color: #131e2e;
     user-select: none;
 }
 #container {
@@ -29,7 +29,7 @@ body {
 }
 h1 {
     margin-bottom: 15px;
-    color: var(--fourth-color);
+    color: var(--first-color);
     font-size: 4em;
 }
 #calculator {
@@ -39,11 +39,11 @@ h1 {
     gap: 10px;
     width: 300px;
     height: 100%;
-    border: 2px solid var(--third-color);
+    border: 1px solid var(--second-color);
     border-radius: 3%;
     padding: 10px 0;
     background-color: var(--third-color);
-    box-shadow: 5px 5px 5px var(--fourth-color);
+    box-shadow: 3px 3px 3px var(--fourth-color);
 }
 #screen {
     padding: 10px;
@@ -54,16 +54,17 @@ h1 {
     width: 90%;
     height: 100px;
     border-radius: 3%;
-    color: var(--second-color);
     background-color: var(--fourth-color);
-    border: 1px solid var(--fourth-color);
+    border: 1px solid var(--second-color);
     font-family: "Orbitron", sans-serif;
 }
 #littleDisplay {
+    color: var(--third-color);
     font-size: 1em;
     align-self: self-end;
 }
 #mainDisplay {
+    color: var(--first-color);
     font-size: 3em;
 }
 #buttons {
@@ -99,10 +100,11 @@ h1 {
     cursor: pointer;
 }
 .regularBtns:hover, .biggestBtn:hover, .biggerBtn:hover {
-    background-color: #f69652;
+    background-color: var(--fourth-color);
+    color: var(--first-color);
 }
 .regularBtns:active, .biggestBtn:active, .biggerBtn:active {
-    background-color: var(--first-color);
+    background-color: #446ba5;
 }
 .disabled {
     pointer-events: none;
