@@ -110,3 +110,16 @@ h1 {
 .disabled {
     pointer-events: none;
 }
+#madeBy {
+    margin-top: 25px;
+    color: var(--first-color);
+}
+#madeBy a{
+    color: var(--first-color);
+    text-decoration: none;
+    transition: 0.3s;
+    font-family: "Oswald", sans-serif;
+}
+#madeBy a:hover{
+    color: var(--third-color);
+}
